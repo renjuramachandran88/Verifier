@@ -1,0 +1,43 @@
+ext.versionConfig = [
+        major: 1,
+        minor: 0,
+        patch: 0
+]
+
+def currentDate = new Date()
+def buildCode = devOptimizationEnabled() ? devVersionCode() : buildCode(currentDate)
+def buildTime = devOptimizationEnabled() ? "devOptimization" : buildTime(currentDate)
+
+ext.appConfig = [
+        compileSdk     : 30,
+        buildTools     : "30.0.2",
+        minSdk         : 23,
+        targetSdk      : 29,
+        multiDexEnabled: true,
+        versionCode    : buildCode,
+        versionName    : "${versionConfig.major}.${versionConfig.minor}.${versionConfig.patch}",
+        buildTime      : "${buildTime}"
+]
+
+ext.instrumentationConfig = [
+        testInstrumentationRunner: "com.ml.verifier.EspressoAppTestRunner",
+]
+
+def devOptimizationEnabled() {
+    def devOptimizationEnabled = project.getProperties().get("devOptimization")
+    return devOptimizationEnabled != null ? devOptimizationEnabled : false
+}
+
+def devVersionCode() {
+    return versionConfig.major * 100 + versionConfig.minor * 10 + versionConfig.patch
+}
+
+static def buildCode(currentDate) { Integer.parseInt(formatDate("yyMMddHHmm", currentDate)) }
+
+static def buildTime(currentDate) { formatDate("yyyy-MM-dd-HH:mm", currentDate) }
+
+static def formatDate(format, date) {
+    def df = new java.text.SimpleDateFormat(format)
+    df.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"))
+    df.format(date)
+}
