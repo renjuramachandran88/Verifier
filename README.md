@@ -4,7 +4,7 @@ Verifier is an android SDK to extract texts using ML kit
 
 ## Getting Started
 
-SDK requires minimun Android 5.0 and turn on JAVA 8 compatability on gradle file.
+SDK requires minimum Android version 5.0 and turn on JAVA 8 compatability on gradle file.
 
 ### Installing
 
