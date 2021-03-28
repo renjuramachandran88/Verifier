@@ -54,6 +54,8 @@ and add following user permissions in android manifest file
     <uses-feature android:name="android.hardware.camera.autofocus" />
     ```
     
+    
+    
     ### Implementation
     
     Once the initial set up is done you can use the library by adding 
@@ -79,5 +81,5 @@ and add following user permissions in android manifest file
             }
         }
     }
-    ```
+   
     
