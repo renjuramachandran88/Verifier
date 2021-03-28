@@ -52,6 +52,7 @@ and add following user permissions in android manifest file
         android:name="android.hardware.camera"
         android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    ```
     
     ### Implementation
     
