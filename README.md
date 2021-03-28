@@ -53,4 +53,30 @@ and add following user permissions in android manifest file
         android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     
+    ### Implementation
+    
+    Once the initial set up is done you can use the library by adding 
+    ```
+     CameraPreviewComponentManager.startCameraPreviewActivity(this, DOCUMENT_READER_REQUEST_CODE)
+     ```
+     and on providing the necessary permission you will be navigated to camera screen where you need to capture the document.
+     
+     Upon successfully capturing the texts you will fallback to parent activity by using
+     
+     ```
+      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == DOCUMENT_READER_REQUEST_CODE && resultCode == RESULT_OK) {
+            data?.let {
+                val documentResult: DocumentResult = data.getParcelableExtra("document_result")!!
+                if (documentResult is DocumentResult.Success) {
+                    val detectedString = documentResult.capturedString
+                    insertVerifierData(detectedString)
+                } else {
+                    showDisplay("Something went wrong Please try again")
+                }
+            }
+        }
+    }
+    ```
     
